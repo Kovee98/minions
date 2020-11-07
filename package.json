@@ -11,7 +11,8 @@
     "image:build": "docker build -t minions:test .",
     "image:run": "docker run -it -p 8085:80 --name minions-test minions:test",
     "image:rm": "docker stop minions-test & docker rm minions-test",
-    "image:rebuild": "npm run image:rm & npm run image:build & npm run image:run"
+    "image:rebuild": "npm run image:rm & npm run image:build & npm run image:run",
+    "compress": "zip -jr minions-$VERSION.zip dist && tar -zcf minions-$VERSION.tar.gz dist"
   },
   "husky": {
     "hooks": {
