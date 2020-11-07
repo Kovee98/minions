@@ -1,0 +1,27 @@
+dist: trusty
+sudo: required
+language: node_js
+
+node_js:
+  - 12
+
+os:
+  - linux
+
+stages:
+  - name: install
+  - name: release
+    if: ((branch = master AND type = push) OR (tag IS present)) AND NOT fork
+
+jobs:
+  include:
+    - stage: install
+      name: install node dependencies
+      script:
+      - npm install
+      skip_cleanup: true
+    - stage: release
+      name: semantic-release
+      script:
+      - npm run build
+      - npx semantic-release
