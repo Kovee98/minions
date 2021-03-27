@@ -42,7 +42,7 @@
                         break;
                     case 'result':
                         // set back to 'ready' state if nothing returned
-                        status.value = data.result || 'ready';
+                        status.value = data.result === undefined ? 'ready' : data.result;
                         break;
                     default:
                         console.log(e.data);
@@ -57,7 +57,10 @@
                 minion.worker.onmessage = handleMessage;
 
                 // test to see if worker is alive
-                minion.worker.postMessage({ cmd: 'ping' });
+                minion.worker.postMessage({
+                    id: minion.id,
+                    cmd: 'ping'
+                });
             };
 
             // re-init worker when minion changes
@@ -67,7 +70,11 @@
             bus.on('*', function (cmd: string, args: Array<string>) {
                 if (!minion || !cmd) return;
 
-                minion.worker?.postMessage({ cmd, args });
+                minion.worker?.postMessage({
+                    id: minion.id,
+                    cmd,
+                    args
+                });
             });
 
             // init worker on initial creation

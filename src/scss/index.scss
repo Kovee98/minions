@@ -1,4 +1,9 @@
-$dark: #343A40;
+/*
+    keep this for utility classes and variables
+*/
+
+@import 'colors';
+@import 'lib/bootstrap.min.css';
 
 html, body, #app {
     background: $dark;

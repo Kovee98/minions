@@ -20,8 +20,9 @@
     }
   },
   "dependencies": {
+    "idb-keyval": "^3.2.0",
     "mitt": "^2.1.0",
-    "vue": "^3.0.2"
+    "vue": "^3.0.8"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -29,21 +30,22 @@
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
-    "@semantic-release/github": "^7.1.1",
-    "@typescript-eslint/eslint-plugin": "^4.6.1",
-    "@typescript-eslint/parser": "^4.6.1",
-    "@vue/compiler-sfc": "^3.0.2",
+    "@semantic-release/github": "^7.2.0",
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "@vitejs/plugin-vue": "^1.2.0",
+    "@vue/compiler-sfc": "^3.0.8",
     "@vue/eslint-config-standard": "^5.1.2",
     "@vue/eslint-config-typescript": "^7.0.0",
-    "eslint": "^7.12.1",
+    "eslint": "^7.23.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.2",
-    "eslint-plugin-vue": "^7.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^4.1.0",
+    "eslint-plugin-vue": "^7.8.0",
     "husky": "^4.3.0",
-    "sass": "^1.28.0",
+    "sass": "^1.32.8",
     "typescript": "^4.0.5",
-    "vite": "^1.0.0-rc.9"
+    "vite": "^2.1.3"
   }
 }

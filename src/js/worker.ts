@@ -1,4 +1,11 @@
 const worker = `
+    function post (data) {
+        postMessage({
+            type: 'status',
+            status: data
+        });
+    }
+
     onmessage = async function (e) {
         const data = e.data;
 
@@ -25,7 +32,10 @@ const worker = `
                     break;
                 }
 
-                const result = await actions[data.cmd](...data.args);
+                const result = await actions[data.cmd]({
+                    id: data.id,
+                    post: post
+                }, ...data.args);
 
                 postMessage({
                     type: 'result',

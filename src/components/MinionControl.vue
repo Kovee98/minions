@@ -1,24 +1,38 @@
 <template>
     <div class="py-1 m-0 row d-flex align-items-center">
         <div class="col-2">
-            <span
-                v-if="actionsFile && actionsFile.name"
-                class="text-monospace"
+            <input
+                type="file"
+                style="display: none"
+                ref="fileInput"
+                @change="handleUpload"
             >
-                <span>
-                    {{actionsFile.name ? actionsFile.name : ''}}
-                </span>
 
-                <span class="text-muted">
-                    ({{actionsFile.size ? bytes(actionsFile.size) : '' }})
-                </span>
-            </span>
-            <span
-                v-if="!actionsFile || !actionsFile.name"
-                class="text-muted"
+            <a
+                type="file"
+                @click="showFilePrompt"
+                class="btn btn-dark float-left"
+                :disabled="!(actionsFile && actionsFile.name)"
             >
-                No actions file
-            </span>
+                <span
+                    v-if="actionsFile && actionsFile.name"
+                    class="text-monospace"
+                >
+                    <span>
+                        {{actionsFile.name ? actionsFile.name : ''}}
+                    </span>
+
+                    <span class="text-muted">
+                        ({{actionsFile.size ? bytes(actionsFile.size) : '' }})
+                    </span>
+                </span>
+                <span
+                    v-if="!actionsFile || !actionsFile.name"
+                    class="text-muted"
+                >
+                    No actions file
+                </span>
+            </a>
         </div>
 
         <div class="col d-flex justify-content-center">
@@ -31,7 +45,7 @@
 
             <input
                 v-model.number="minionCount"
-                @keyup.enter="updateMinions"
+                @keyup.enter="setMinions"
                 @blur="minionCount = minions.length"
                 class="minion-count mx-3 px-2 bg-dark text-center text-white radius-0 border-0 border-secondary"
             >
@@ -46,7 +60,7 @@
 
         <div class="col-2">
             <button
-                @click="$emit('update-minions', 0)"
+                @click="$emit('clear-all')"
                 type="button"
                 class="btn btn-dark text-danger float-right"
             >
@@ -57,7 +71,7 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent, watch, ref } from 'vue';
+    import { defineComponent, watch, ref, computed } from 'vue';
     import MinionControlButton from './MinionControlButton.vue';
     import utils from '../js/utils';
 
@@ -76,12 +90,13 @@
 
             actionsFile: {
                 required: true,
-                type: File
+                type: Object
             }
         },
 
-        setup ({ minions }, { emit }) {
+        setup ({ minions }, { emit, props }) {
             const minionCount = ref(minions.length);
+            const fileInput = ref(null);
 
             const subBtns = [
                 { text: '-50', num: -50 },
@@ -95,15 +110,41 @@
                 { text: '+50', num: 50 }
             ];
 
-            const updateMinions = function () {
-                const oldCount = minions.length;
+            const fileUrl = computed(() => {
+                const data = new Blob([props.actionsFile.content]);
+                return window.URL.createObjectURL(data);
+            });
+
+            const setMinions = function () {
                 const newCount = minionCount.value;
+
+                if (newCount < 0) {
+                    minionCount.value = 0;
+                    return;
+                }
+
+                const oldCount = minions.length;
                 const countDiff = newCount - oldCount;
 
                 // no difference, don't do anything
                 if (countDiff === 0) return;
 
                 emit('update-minions', countDiff);
+            };
+
+            const showFilePrompt = () => {
+                if (fileInput && fileInput.value) {
+                    if (fileInput.value.onclick) fileInput.value.onclick();
+                    else if (fileInput.value.click) fileInput.value.click();
+                }
+            };
+
+            const handleUpload = () => {
+                emit('handle-drop', {
+                    dataTransfer: {
+                        files: fileInput.value.files
+                    }
+                });
             };
 
             watch(minions, function () {
@@ -113,7 +154,11 @@
             return {
                 subBtns,
                 addBtns,
-                updateMinions,
+                fileUrl,
+                fileInput,
+                setMinions,
+                showFilePrompt,
+                handleUpload,
                 minionCount,
                 bytes: utils.bytes
             };
@@ -126,6 +171,6 @@
         font-size: 1.25rem;
         border-bottom: 1px solid white !important;
         outline: none;
-        width: 3rem;
+        width: 4rem;
     }
 </style>
