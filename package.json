@@ -1,7 +1,7 @@
 {
   "name": "minions",
   "description": "An app to make web worker orchestration a thing",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
