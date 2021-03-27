@@ -22,3 +22,7 @@ body {
 .minion-list {
     background: darken($dark, 10%);
 }
+
+.whiteify {
+    filter: brightness(0) invert(1);
+}
