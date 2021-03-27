@@ -11,7 +11,7 @@
 
 <script lang="ts">
     import { defineComponent } from 'vue';
-    import logo from '../assets/logo.svg';
+    import logo from '../assets/images/logo.svg';
 
     export default defineComponent({
         name: 'TitleBar',
