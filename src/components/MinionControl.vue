@@ -11,12 +11,12 @@
             <a
                 type="file"
                 @click="showFilePrompt"
-                class="btn btn-dark float-left"
+                class="btn btn-dark float-start"
                 :disabled="!(actionsFile && actionsFile.name)"
             >
                 <span
                     v-if="actionsFile && actionsFile.name"
-                    class="text-monospace"
+                    class="font-monospace"
                 >
                     <span>
                         {{actionsFile.name ? actionsFile.name : ''}}
@@ -62,7 +62,7 @@
             <button
                 @click="$emit('clear-all')"
                 type="button"
-                class="btn btn-dark text-danger float-right"
+                class="btn btn-dark text-danger float-end"
             >
                 Clear All
             </button>

@@ -3,7 +3,7 @@
         <div class="card-header font-weight-bold">
             #{{minion.id}}
         </div>
-        <div class="card-body text-monospace text-truncate d-flex justify-content-center align-items-center">
+        <div class="card-body font-monospace text-truncate d-flex justify-content-center align-items-center">
             <p :class="`text-capitalize ${isError ? 'text-danger' : ''}`">{{status}}</p>
         </div>
     </div>

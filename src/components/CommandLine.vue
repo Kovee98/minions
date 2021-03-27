@@ -7,21 +7,11 @@
             <input
                 v-model.trim="cmd"
                 @keyup.enter="executeCmd"
-                class="w-100 py-3 border-0 rounded-0 bg-dark text-white text-monospace font-weight-bold"
+                class="w-100 py-3 border-0 rounded-0 bg-dark text-white font-monospace font-weight-bold"
                 :placeholder="placeholder"
             >
         </div>
     </div>
-    <!-- <div class="cmd-line d-flex align-items-center bg-dark">
-        <i class="icon-right-open mx-2 ml-3"></i>
-
-        <input
-            v-model.trim="cmd"
-            @keyup.enter="executeCmd"
-            class="w-100 py-3 border-0 rounded-0 bg-dark text-white text-monospace font-weight-bold"
-            :placeholder="placeholder"
-        >
-    </div> -->
 </template>
 
 <script lang="ts">
